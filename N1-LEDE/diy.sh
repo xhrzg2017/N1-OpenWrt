@@ -23,9 +23,27 @@ git clone -b v5-lua --single-branch --depth 1 https://github.com/sbwml/luci-app-
 #git clone -b lua --single-branch --depth 1 https://github.com/sbwml/luci-app-alist package/alist
 #git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
 
-git clone --depth=1 https://github.com/kenzok8/openwrt-package.git –filter=blob:none –sparse luci-app-adguardhome package/luci-app-adguardhome
-git clone --depth=1 https://github.com/kenzok8/openwrt-package.git –filter=blob:none –sparse adguardhome package/adguardhome
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages.git –filter=blob:none –sparse luci-app-openclash package/luci-app-openclash
+#git clone --depth=1 https://github.com/kenzok8/openwrt-packages.git –filter=blob:none –sparse luci-app-adguardhome package/luci-app-adguardhome
+#git clone --depth=1 https://github.com/kenzok8/openwrt-packages.git –filter=blob:none –sparse adguardhome package/adguardhome
+#git clone --depth=1 https://github.com/kiddin9/kwrt-packages.git –filter=blob:none –sparse luci-app-openclash package/luci-app-openclash
+
+git clone --no-checkout https://github.com/kenzok8/openwrt-packages.git package/luci-app-adguardhome
+cd openwrt-packages
+git sparse-checkout init --cone
+git sparse-checkout set luci-app-adguardhome
+git checkout master
+
+git clone --no-checkout https://github.com/kenzok8/openwrt-packages.git package/adguardhome
+cd openwrt-packages
+git sparse-checkout init --cone
+git sparse-checkout set adguardhome
+git checkout master
+
+git clone --no-checkout https://github.com/kiddin9/kwrt-packages.git package/luci-app-openclash
+cd kwrt-packages
+git sparse-checkout init --cone
+git sparse-checkout set luci-app-openclash
+git checkout master
 
 #添加自定义的软件包源
 #git_sparse_clone main https://github.com/kiddin9/kwrt-packages ddns-go
