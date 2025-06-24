@@ -23,9 +23,8 @@ git clone -b v5-lua --single-branch --depth 1 https://github.com/sbwml/luci-app-
 #git clone -b lua --single-branch --depth 1 https://github.com/sbwml/luci-app-alist package/alist
 #git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
 
-git clone --depth=1 https://github.com/kenzok8/openwrt-packages.git package/luci-app-adguardhome
-git clone --depth=1 https://github.com/kenzok8/openwrt-packages.git package/adguardhome
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages.git package/luci-app-openclash
+git clone --depth=1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
+git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
 
 
 
