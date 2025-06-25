@@ -1,0 +1,13 @@
+
+config queue 'eth1'
+	option download '85000'
+	option upload '10000'
+	option qdisc_advanced '0'
+	option linklayer 'none'
+	option enabled '1'
+	option interface 'eth0'
+	option debug_logging '0'
+	option verbosity '5'
+	option qdisc 'fq_codel'
+	option script 'simplest_tbf.qos'
+
