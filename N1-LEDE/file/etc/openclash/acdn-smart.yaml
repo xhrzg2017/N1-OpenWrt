@@ -1,7 +1,13 @@
----
+# ========================
+# Clash-ALL 优化配置
+# ========================
+
+# 机场节点订阅
+
 proxy-providers:
+
   分享:
-    url: https://it.weoknow.com/data/dayupdate/1/z.txt
+    url: "https://it.weoknow.com/data/dayupdate/1/z.txt"
     type: http
     interval: 720
     health-check:
@@ -9,796 +15,615 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 直连
+  
+ 
+
 proxies:
-- name: 直连
-  type: direct
-- name: 拒绝
-  type: reject
+  - {name: 直连, type: direct}
+  - {name: 拒绝, type: reject}
+
+# ========================
+# 主要端口设置
+# ========================
 port: 7890
 socks-port: 7891
 redir-port: 7892
 mixed-port: 7893
 tproxy-port: 7895
+
 allow-lan: true
 mode: rule
 log-level: info
+
 external-controller: 0.0.0.0:9090
-secret: '123456'
+# external-ui: ui
+# external-ui-name: zashboard
+# external-ui-url: https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip
+secret: "123456"
+
+# ========================
+# DNS 设置
+# ========================
 dns:
   enable: true
   listen: 0.0.0.0:7874
   ipv6: true
   enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
+  fake-ip-range: 198.20.0.1/16
   nameserver:
-  - 172.18.10.2
+    - 223.5.5.5
   fake-ip-filter:
-  - "*.lan"
-  - "*.localdomain"
-  - "*.example"
-  - "*.invalid"
-  - "*.localhost"
-  - "*.test"
-  - "*.local"
-  - "*.home.arpa"
-  - geosite:cn
-  - time.*.com
-  - time.*.gov
-  - time.*.edu.cn
-  - time.*.apple.com
-  - time-ios.apple.com
-  - time1.*.com
-  - time2.*.com
-  - time3.*.com
-  - time4.*.com
-  - time5.*.com
-  - time6.*.com
-  - time7.*.com
-  - ntp.*.com
-  - ntp1.*.com
-  - ntp2.*.com
-  - ntp3.*.com
-  - ntp4.*.com
-  - ntp5.*.com
-  - ntp6.*.com
-  - ntp7.*.com
-  - "*.time.edu.cn"
-  - "*.ntp.org.cn"
-  - "+.pool.ntp.org"
-  - time1.cloud.tencent.com
-  - music.163.com
-  - "*.music.163.com"
-  - "*.126.net"
-  - musicapi.taihe.com
-  - music.taihe.com
-  - songsearch.kugou.com
-  - trackercdn.kugou.com
-  - "*.kuwo.cn"
-  - api-jooxtt.sanook.com
-  - api.joox.com
-  - joox.com
-  - y.qq.com
-  - "*.y.qq.com"
-  - streamoc.music.tc.qq.com
-  - mobileoc.music.tc.qq.com
-  - isure.stream.qqmusic.qq.com
-  - dl.stream.qqmusic.qq.com
-  - aqqmusic.tc.qq.com
-  - amobile.music.tc.qq.com
-  - "*.xiami.com"
-  - "*.music.migu.cn"
-  - music.migu.cn
-  - "+.msftconnecttest.com"
-  - "+.msftncsi.com"
-  - localhost.ptlogin2.qq.com
-  - localhost.sec.qq.com
-  - "+.qq.com"
-  - "+.tencent.com"
-  - "+.srv.nintendo.net"
-  - "*.n.n.srv.nintendo.net"
-  - "+.stun.playstation.net"
-  - xbox.*.*.microsoft.com
-  - "*.*.xboxlive.com"
-  - xbox.*.microsoft.com
-  - xnotify.xboxlive.com
-  - "+.battlenet.com.cn"
-  - "+.wotgame.cn"
-  - "+.wggames.cn"
-  - "+.wowsgame.cn"
-  - "+.wargaming.net"
-  - proxy.golang.org
-  - stun.*.*
-  - stun.*.*.*
-  - "+.stun.*.*"
-  - "+.stun.*.*.*"
-  - "+.stun.*.*.*.*"
-  - "+.stun.*.*.*.*.*"
-  - heartbeat.belkin.com
-  - "*.linksys.com"
-  - "*.linksyssmartwifi.com"
-  - "*.router.asus.com"
-  - mesu.apple.com
-  - swscan.apple.com
-  - swquery.apple.com
-  - swdownload.apple.com
-  - swcdn.apple.com
-  - swdist.apple.com
-  - lens.l.google.com
-  - stun.l.google.com
-  - na.b.g-tun.com
-  - "+.nflxvideo.net"
-  - "*.square-enix.com"
-  - "*.finalfantasyxiv.com"
-  - "*.ffxiv.com"
-  - "*.ff14.sdo.com"
-  - ff.dorado.sdo.com
-  - "*.mcdn.bilivideo.cn"
-  - "+.media.dssott.com"
-  - shark007.net
-  - Mijia Cloud
-  - "+.cmbchina.com"
-  - "+.cmbimg.com"
-  - local.adguard.org
-  - "+.sandai.net"
-  - "+.n0808.com"
-  respect-rules: true
-  fallback:
-  - https://mosdns.apad.pro/api-query
-  - https://pz.fyi/dns-query
-  - https://hk.raito.xns.one/DypUTdbueEI/dns-query
-  - https://dns.xhrzg2017.xyz/dns-query
-  proxy-server-nameserver:
-  - 114.114.114.114
-  - 119.29.29.29
-  - 8.8.8.8
-  - 1.1.1.1
+    #LAN
+    - '*.lan'
+    - '*.localdomain'
+    - '*.example'
+    - '*.invalid'
+    - '*.localhost'
+    - '*.test'
+    - '*.local'
+    - '*.home.arpa'
+    - geosite:cn
+    #放行NTP服务
+    - 'time.*.com'
+    - 'time.*.gov'
+    - 'time.*.edu.cn'
+    - 'time.*.apple.com'
+    - 'time-ios.apple.com'
+    - 'time1.*.com'
+    - 'time2.*.com'
+    - 'time3.*.com'
+    - 'time4.*.com'
+    - 'time5.*.com'
+    - 'time6.*.com'
+    - 'time7.*.com'
+    - 'ntp.*.com'
+    - 'ntp1.*.com'
+    - 'ntp2.*.com'
+    - 'ntp3.*.com'
+    - 'ntp4.*.com'
+    - 'ntp5.*.com'
+    - 'ntp6.*.com'
+    - 'ntp7.*.com'
+    - '*.time.edu.cn'
+    - '*.ntp.org.cn'
+    - '+.pool.ntp.org'
+    - 'time1.cloud.tencent.com'
+    #放行网易云音乐
+    - 'music.163.com'
+    - '*.music.163.com'
+    - '*.126.net'
+    #百度音乐
+    - 'musicapi.taihe.com'
+    - 'music.taihe.com'
+    #酷狗音乐
+    - 'songsearch.kugou.com'
+    - 'trackercdn.kugou.com'
+    #酷我音乐
+    - '*.kuwo.cn'
+    #JOOX音乐
+    - 'api-jooxtt.sanook.com'
+    - 'api.joox.com'
+    - 'joox.com'
+    #QQ音乐
+    - 'y.qq.com'
+    - '*.y.qq.com'
+    - 'streamoc.music.tc.qq.com'
+    - 'mobileoc.music.tc.qq.com'
+    - 'isure.stream.qqmusic.qq.com'
+    - 'dl.stream.qqmusic.qq.com'
+    - 'aqqmusic.tc.qq.com'
+    - 'amobile.music.tc.qq.com'
+    #虾米音乐
+    - '*.xiami.com'
+    #咪咕音乐
+    - '*.music.migu.cn'
+    - 'music.migu.cn'
+    #win10本地连接检测
+    - '+.msftconnecttest.com'
+    - '+.msftncsi.com'
+    #QQ登录
+    - 'localhost.ptlogin2.qq.com'
+    - 'localhost.sec.qq.com'
+    - '+.qq.com'
+    - '+.tencent.com'
+    #Game'
+    #Nintendo Switch
+    - '+.srv.nintendo.net'
+    - '*.n.n.srv.nintendo.net'
+    #Sony PlayStation'
+    - '+.stun.playstation.net'
+    #Microsoft Xbox
+    - 'xbox.*.*.microsoft.com'
+    - '*.*.xboxlive.com'
+    - 'xbox.*.microsoft.com'
+    - 'xnotify.xboxlive.com'
+    #Wotgame
+    - '+.battlenet.com.cn'
+    - '+.wotgame.cn'
+    - '+.wggames.cn'
+    - '+.wowsgame.cn'
+    - '+.wargaming.net'
+    #Golang
+    - 'proxy.golang.org'
+    #STUN
+    - 'stun.*.*'
+    - 'stun.*.*.*'
+    - '+.stun.*.*'
+    - '+.stun.*.*.*'
+    - '+.stun.*.*.*.*'
+    - '+.stun.*.*.*.*.*'
+    #Linksys Router
+    - 'heartbeat.belkin.com'
+    - '*.linksys.com'
+    - '*.linksyssmartwifi.com'
+    #ASUS Router
+    - '*.router.asus.com'
+    #Apple Software Update Service
+    - 'mesu.apple.com'
+    - 'swscan.apple.com'
+    - 'swquery.apple.com'
+    - 'swdownload.apple.com'
+    - 'swcdn.apple.com'
+    - 'swdist.apple.com'
+    #Google
+    - 'lens.l.google.com'
+    - 'stun.l.google.com'
+    - 'na.b.g-tun.com'
+    #Netflix
+    - '+.nflxvideo.net'
+    #FinalFantasy XIV Worldwide Server & CN Server
+    - '*.square-enix.com'
+    - '*.finalfantasyxiv.com'
+    - '*.ffxiv.com'
+    - '*.ff14.sdo.com'
+    - 'ff.dorado.sdo.com'
+    #Bilibili
+    - '*.mcdn.bilivideo.cn'
+    #Disney Plus
+    - '+.media.dssott.com'
+    #shark007 Codecs 
+    - 'shark007.net'
+    #Mijia
+    - 'Mijia Cloud'
+    #招商银行
+    - '+.cmbchina.com'
+    - '+.cmbimg.com'
+    #AdGuard'
+    - 'local.adguard.org'
+    #迅雷
+    - '+.sandai.net'
+    - '+.n0808.com'
+
+
 ipv6: true
+
+# ========================
+# TUN 模块
+# ========================
 tun:
   enable: true
-  stack: mixed
+  stack: gvisor
   device: utun
-  dns-hijack:
-  - 127.0.0.1:53
   endpoint-independent-nat: true
   auto-route: false
   auto-detect-interface: false
   auto-redirect: false
   strict-route: false
+
 profile:
   store-selected: true
   store-fake-ip: true
-default:
+
+# ========================
+# 策略组定义
+# ========================
+
+default: &default
   type: select
-  proxies: &1
-  - "\U0001F1E8\U0001F1F3\U0001F1EF\U0001F1F5\U0001F1F8\U0001F1EC 台日新韩-故转"
-  - "\U0001F1ED\U0001F1F0 香港-故转"
-  - "\U0001F1ED\U0001F1F0 香港-智选"
-  - "\U0001F1E8\U0001F1F3 台湾-故转"
-  - "\U0001F1EF\U0001F1F5 日本-故转"
-  - "\U0001F1F8\U0001F1EC 新加坡-故转"
-  - "\U0001F1F0\U0001F1F7 韩国-故转"
-  - "\U0001F1FA\U0001F1F8 美国-故转"
-  - 所有-智选
-  - 所有-手选
-  - 其他-故转
-  - 直连
-  - 拒绝
-oversea:
+  proxies:
+    - 🇨🇳🇯🇵🇸🇬 台日新韩-故转
+    - 🇭🇰 香港-故转
+    - 🇭🇰 香港-智选
+    - 🇨🇳 台湾-故转
+    - 🇯🇵 日本-故转
+    - 🇸🇬 新加坡-故转
+    - 🇰🇷 韩国-故转
+    - 🇺🇸 美国-故转
+    - 所有-智选
+    - 所有-手选
+    - 其他-故转
+    - 直连
+    - 拒绝
+
+oversea: &oversea
   type: select
-  proxies: &4
-  - "✈️ 起飞"
-  - "\U0001F1E8\U0001F1F3\U0001F1EF\U0001F1F5\U0001F1F8\U0001F1EC 台日新韩-故转"
-  - "\U0001F1ED\U0001F1F0 香港-故转"
-  - "\U0001F1ED\U0001F1F0 香港-智选"
-  - "\U0001F1E8\U0001F1F3 台湾-故转"
-  - "\U0001F1EF\U0001F1F5 日本-故转"
-  - "\U0001F1F8\U0001F1EC 新加坡-故转"
-  - "\U0001F1F0\U0001F1F7 韩国-故转"
-  - "\U0001F1FA\U0001F1F8 美国-故转"
-  - 所有-智选
-  - 所有-手选
-  - 其他-故转
-  - 直连
-  - 拒绝
-direct:
+  proxies:
+    - ✈️ 起飞
+    - 🇨🇳🇯🇵🇸🇬 台日新韩-故转
+    - 🇭🇰 香港-故转
+    - 🇭🇰 香港-智选
+    - 🇨🇳 台湾-故转
+    - 🇯🇵 日本-故转
+    - 🇸🇬 新加坡-故转
+    - 🇰🇷 韩国-故转
+    - 🇺🇸 美国-故转
+    - 所有-智选
+    - 所有-手选
+    - 其他-故转
+    - 直连
+    - 拒绝
+
+direct: &direct
   type: select
-  proxies: &2
-  - 直连
-  - "✈️ 起飞"
-  - "\U0001F1E8\U0001F1F3\U0001F1EF\U0001F1F5\U0001F1F8\U0001F1EC 台日新韩-故转"
-  - "\U0001F1ED\U0001F1F0 香港-故转"
-  - "\U0001F1ED\U0001F1F0 香港-智选"
-  - "\U0001F1E8\U0001F1F3 台湾-故转"
-  - "\U0001F1EF\U0001F1F5 日本-故转"
-  - "\U0001F1F8\U0001F1EC 新加坡-故转"
-  - "\U0001F1F0\U0001F1F7 韩国-故转"
-  - "\U0001F1FA\U0001F1F8 美国-故转"
-  - 所有-智选
-  - 所有-手选
-  - 其他-故转
-  - 拒绝
-lite:
+  proxies:
+    - 直连
+    - ✈️ 起飞
+    - 🇨🇳🇯🇵🇸🇬 台日新韩-故转
+    - 🇭🇰 香港-故转
+    - 🇭🇰 香港-智选
+    - 🇨🇳 台湾-故转
+    - 🇯🇵 日本-故转
+    - 🇸🇬 新加坡-故转
+    - 🇰🇷 韩国-故转
+    - 🇺🇸 美国-故转
+    - 所有-智选
+    - 所有-手选
+    - 其他-故转
+    - 拒绝
+
+lite: &lite
   type: select
-  proxies: &3
-  - 拒绝
-  - 直连
-  - "✈️ 起飞"
-Bilibili:
+  proxies:
+    - 拒绝
+    - 直连
+    - ✈️ 起飞
+
+Bilibili: &Bilibili
   type: select
-  proxies: &5
-  - "\U0001F6E9 ‍墙内"
-  - "\U0001F4FA B站海外"
-  - 所有-手选
+  proxies:
+    - 🛩 ‍墙内
+    - 📺 B站海外
+    - 所有-手选
+
+
+
 proxy-groups:
-- name: "\U0001F4E2 机场信息"
-  type: select
-  include-all: true
-  filter: "(机场|订阅|官网|重置|剩余|流量|过期|本站|用户|续费|邮箱)"
-- name: "✈️ 起飞"
-  type: select
-  proxies: *1
-- name: "\U0001F6E9 ‍墙内"
-  type: select
-  proxies: *2
-- name: "⏱️ 检测"
-  type: select
-  proxies: *2
-- name: "\U0001F4A9 ‍广告"
-  type: select
-  proxies: *3
-- name: "⚠️ ‍PCDN"
-  type: select
-  proxies: *3
-- name: "\U0001F3AC EMBY"
-  type: select
-  proxies: *4
-- name: "\U0001F4FA B站"
-  type: select
-  proxies: *5
-- name: "\U0001F4FA B站海外"
-  type: select
-  include-all: true
-  filter: "(^(?!.*(IPLC|iplc)).*(香港|台湾|马来|泰国|印度|印尼)).*$"
-- name: "\U0001F3AC Youtube"
-  type: select
-  proxies: *4
-- name: "\U0001F3B5 Spotify"
-  type: select
-  proxies: *4
-- name: "\U0001F3B6 TikTok"
-  type: select
-  proxies: *4
-- name: "\U0001F916 AI"
-  type: select
-  proxies: *4
-- name: "\U0001F4F2 即时通讯"
-  type: select
-  proxies: *4
-- name: "\U0001F3AE HoYoGames"
-  type: select
-  proxies: *4
-- name: "\U0001F3AE 游戏平台"
-  type: select
-  proxies: *4
-- name: 其他
-  type: select
-  proxies: *4
-- name: 所有-手选
-  type: select
-  include-all: true
-  filter: "^((?!(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).)*$"
-- name: 所有-智选
-  type: smart
-  include-all: true
-  uselightgbm: true
-  collectdata: true
-  interval: 300
-  filter: "^((?!(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).)*$"
-- name: "\U0001F1E8\U0001F1F3\U0001F1EF\U0001F1F5\U0001F1F8\U0001F1EC 台日新韩-故转"
-  type: fallback
-  interval: 300
-  lazy: false
-  proxies:
-  - "\U0001F1E8\U0001F1F3\U0001F1EF\U0001F1F5\U0001F1F8\U0001F1EC 台日新韩-智选"
-  - "\U0001F1E8\U0001F1F3\U0001F1EF\U0001F1F5\U0001F1F8\U0001F1EC 台日新韩-手选"
-- name: "\U0001F1E8\U0001F1F3\U0001F1EF\U0001F1F5\U0001F1F8\U0001F1EC 台日新韩-手选"
-  type: select
-  include-all: true
-  filter: "(^(?!.*(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).*(台湾|TW|Tai
-    Wan|\U0001F1F9\U0001F1FC|\U0001F1E8\U0001F1F3|TaiWan|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|\U0001F1EF\U0001F1F5|Japan|新加坡|SG|坡|狮城|\U0001F1F8\U0001F1EC|Singapore|韩国|KR|首尔|春川|\U0001F1F0\U0001F1F7|Korea)).*$"
-- name: "\U0001F1E8\U0001F1F3\U0001F1EF\U0001F1F5\U0001F1F8\U0001F1EC 台日新韩-智选"
-  type: smart
-  include-all: true
-  uselightgbm: true
-  collectdata: true
-  interval: 300
-  filter: "(^(?!.*(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).*(台湾|TW|Tai
-    Wan|\U0001F1F9\U0001F1FC|\U0001F1E8\U0001F1F3|TaiWan|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|\U0001F1EF\U0001F1F5|Japan|新加坡|SG|坡|狮城|\U0001F1F8\U0001F1EC|Singapore|韩国|KR|首尔|春川|\U0001F1F0\U0001F1F7|Korea)).*$"
-- name: "\U0001F1ED\U0001F1F0 香港-故转"
-  type: fallback
-  interval: 300
-  lazy: false
-  proxies:
-  - "\U0001F1ED\U0001F1F0 香港-智选"
-  - "\U0001F1ED\U0001F1F0 香港-手选"
-- name: "\U0001F1ED\U0001F1F0 香港-手选"
-  type: select
-  include-all: true
-  filter: "(^(?!.*(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).*(香港|HK|Hong
-    Kong|\U0001F1ED\U0001F1F0|HongKong)).*$"
-- name: "\U0001F1ED\U0001F1F0 香港-智选"
-  type: smart
-  include-all: true
-  uselightgbm: true
-  collectdata: true
-  interval: 300
-  filter: "(^(?!.*(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).*(香港|HK|Hong
-    Kong|\U0001F1ED\U0001F1F0|HongKong)).*$"
-- name: "\U0001F1E8\U0001F1F3 台湾-故转"
-  type: fallback
-  interval: 300
-  lazy: false
-  proxies:
-  - "\U0001F1E8\U0001F1F3 台湾-智选"
-  - "\U0001F1E8\U0001F1F3 台湾-手选"
-- name: "\U0001F1E8\U0001F1F3 台湾-手选"
-  type: select
-  include-all: true
-  filter: "(?=.*(广台|台湾|台灣|TW|Tai Wan|\U0001F1F9\U0001F1FC|\U0001F1E8\U0001F1F3|TaiWan|Taiwan)).*$"
-- name: "\U0001F1E8\U0001F1F3 台湾-智选"
-  type: smart
-  include-all: true
-  uselightgbm: true
-  collectdata: true
-  interval: 300
-  filter: "(?=.*(广台|台湾|台灣|TW|Tai Wan|\U0001F1F9\U0001F1FC|\U0001F1E8\U0001F1F3|TaiWan|Taiwan)).*$"
-- name: "\U0001F1EF\U0001F1F5 日本-故转"
-  type: fallback
-  interval: 300
-  lazy: false
-  proxies:
-  - "\U0001F1EF\U0001F1F5 日本-智选"
-  - "\U0001F1EF\U0001F1F5 日本-手选"
-- name: "\U0001F1EF\U0001F1F5 日本-手选"
-  type: select
-  include-all: true
-  filter: "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|\U0001F1EF\U0001F1F5|Japan)).*$"
-- name: "\U0001F1EF\U0001F1F5 日本-智选"
-  type: smart
-  include-all: true
-  uselightgbm: true
-  collectdata: true
-  interval: 300
-  filter: "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|\U0001F1EF\U0001F1F5|Japan)).*$"
-- name: "\U0001F1F8\U0001F1EC 新加坡-故转"
-  type: fallback
-  interval: 300
-  lazy: false
-  proxies:
-  - "\U0001F1F8\U0001F1EC 新加坡-智选"
-  - "\U0001F1F8\U0001F1EC 新加坡-手选"
-- name: "\U0001F1F8\U0001F1EC 新加坡-手选"
-  type: select
-  include-all: true
-  filter: "(?=.*(广新|新加坡|SG|坡|狮城|\U0001F1F8\U0001F1EC|Singapore)).*$"
-- name: "\U0001F1F8\U0001F1EC 新加坡-智选"
-  type: smart
-  include-all: true
-  uselightgbm: true
-  collectdata: true
-  interval: 300
-  filter: "(?=.*(广新|新加坡|SG|坡|狮城|\U0001F1F8\U0001F1EC|Singapore)).*$"
-- name: "\U0001F1F0\U0001F1F7 韩国-故转"
-  type: fallback
-  interval: 300
-  lazy: false
-  proxies:
-  - "\U0001F1F0\U0001F1F7 韩国-智选"
-  - "\U0001F1F0\U0001F1F7 韩国-手选"
-- name: "\U0001F1F0\U0001F1F7 韩国-手选"
-  type: select
-  include-all: true
-  filter: "(?=.*(广韩|韩国|韓國|KR|首尔|春川|\U0001F1F0\U0001F1F7|Korea)).*$"
-- name: "\U0001F1F0\U0001F1F7 韩国-智选"
-  type: smart
-  include-all: true
-  uselightgbm: true
-  collectdata: true
-  interval: 300
-  filter: "(?=.*(广韩|韩国|韓國|KR|首尔|春川|\U0001F1F0\U0001F1F7|Korea)).*$"
-- name: "\U0001F1FA\U0001F1F8 美国-故转"
-  type: fallback
-  interval: 300
-  lazy: false
-  proxies:
-  - "\U0001F1FA\U0001F1F8 美国-智选"
-  - "\U0001F1FA\U0001F1F8 美国-手选"
-- name: "\U0001F1FA\U0001F1F8 美国-手选"
-  type: select
-  include-all: true
-  filter: "(?=.*(广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|\U0001F1FA\U0001F1F8|United
-    States)).*$"
-- name: "\U0001F1FA\U0001F1F8 美国-智选"
-  type: smart
-  include-all: true
-  uselightgbm: true
-  collectdata: true
-  interval: 300
-  filter: "(?=.*(广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|\U0001F1FA\U0001F1F8|United
-    States)).*$"
-- name: 其他-故转
-  type: fallback
-  interval: 300
-  lazy: false
-  proxies:
-  - 其他-智选
-  - 其他-手选
-- name: 其他-手选
-  type: select
-  include-all: true
-  filter: "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|\U0001F1ED\U0001F1F0|HongKong|广台|台湾|台灣|TW|Tai
-    Wan|\U0001F1F9\U0001F1FC|\U0001F1E8\U0001F1F3|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|\U0001F1EF\U0001F1F5|Japan|广新|新加坡|SG|坡|狮城|\U0001F1F8\U0001F1EC|Singapore|广韩|韩国|韓國|KR|首尔|春川|\U0001F1F0\U0001F1F7|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|\U0001F1FA\U0001F1F8|United
-    States|英国|UK|United Kingdom|伦敦|英|London|\U0001F1EC\U0001F1E7)).)*$"
-- name: 其他-智选
-  type: smart
-  include-all: true
-  uselightgbm: true
-  collectdata: true
-  interval: 300
-  filter: "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|\U0001F1ED\U0001F1F0|HongKong|广台|台湾|台灣|TW|Tai
-    Wan|\U0001F1F9\U0001F1FC|\U0001F1E8\U0001F1F3|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|\U0001F1EF\U0001F1F5|Japan|广新|新加坡|SG|坡|狮城|\U0001F1F8\U0001F1EC|Singapore|广韩|韩国|韓國|KR|首尔|春川|\U0001F1F0\U0001F1F7|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|\U0001F1FA\U0001F1F8|United
-    States|英国|UK|United Kingdom|伦敦|英|London|\U0001F1EC\U0001F1E7)).)*$"
+
+  # 业务分流组
+  - name: 📢 机场信息
+    type: select
+    include-all: true
+    filter: "(机场|订阅|官网|重置|剩余|流量|过期|本站|用户|续费|邮箱)"
+
+  - {name: ✈️ 起飞, <<: *default}
+  - {name: 🛩 ‍墙内, <<: *direct}
+  - {name: ⏱️ 检测, <<: *direct}
+  - {name: 💩 ‍广告, <<: *lite}
+  - {name: ⚠️ ‍PCDN, <<: *lite}
+  - {name: 🎬 EMBY, <<: *oversea}
+  - {name: 📺 B站, <<: *Bilibili} 
+  
+  - name: 📺 B站海外
+    type: select
+    include-all: true
+    filter: "(^(?!.*(IPLC|iplc)).*(香港|台湾|马来|泰国|印度|印尼)).*$"	
+  - {name: 🎬 Youtube , <<: *oversea} 
+  - {name: 🎵 Spotify, <<: *oversea}
+  - {name: 🎶 TikTok, <<: *oversea}
+  - {name: 🤖 AI, <<: *oversea}
+  - {name: 📲 即时通讯, <<: *oversea}
+  - {name: 🎮 HoYoGames, <<: *oversea}
+  - {name: 🎮 游戏平台, <<: *oversea}
+
+
+  - {name: 其他, <<: *oversea}
+
+
+
+  - name: 所有-手选
+    type: select
+    include-all: true
+    filter: "^((?!(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).)*$"
+
+  - name: 所有-智选
+    type: smart
+    include-all: true
+#   policy-priority: "香港:1.2;牛逼:0.8"
+    uselightgbm: true
+    collectdata: true
+    interval: 300
+    filter: "^((?!(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).)*$"
+
+  # 台日新韩组
+  - name: 🇨🇳🇯🇵🇸🇬 台日新韩-故转
+    type: fallback
+    interval: 300
+    lazy: false
+    proxies:
+      - 🇨🇳🇯🇵🇸🇬 台日新韩-智选
+      - 🇨🇳🇯🇵🇸🇬 台日新韩-手选
+
+  - name: 🇨🇳🇯🇵🇸🇬 台日新韩-手选
+    type: select
+    include-all: true
+    filter: "(^(?!.*(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).*(台湾|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|新加坡|SG|坡|狮城|🇸🇬|Singapore|韩国|KR|首尔|春川|🇰🇷|Korea)).*$"
+  - name: 🇨🇳🇯🇵🇸🇬 台日新韩-智选
+    type: smart
+    include-all: true
+#   policy-priority: "牛逼:0.8"
+    uselightgbm: true
+    collectdata: true
+    interval: 300
+    filter: "(^(?!.*(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).*(台湾|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|新加坡|SG|坡|狮城|🇸🇬|Singapore|韩国|KR|首尔|春川|🇰🇷|Korea)).*$"
+
+  # 香港组
+  - name: 🇭🇰 香港-故转
+    type: fallback
+    interval: 300
+    lazy: false
+    proxies:
+      - 🇭🇰 香港-智选
+      - 🇭🇰 香港-手选
+
+  
+  - name: 🇭🇰 香港-手选
+    type: select
+    include-all: true
+    filter: "(^(?!.*(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).*(香港|HK|Hong Kong|🇭🇰|HongKong)).*$"
+    
+  - name: 🇭🇰 香港-智选
+    type: smart
+    include-all: true
+#   policy-priority: "牛逼:0.8"
+    uselightgbm: true
+    collectdata: true
+    interval: 300
+    filter: "(^(?!.*(IPLC|iplc|机场|订阅|官网|重置|计费|深港|家宽|游戏|剩余|流量|0.5|0.5倍|0.5x|2.0|2倍|2x|3.0|3倍|3x|4.0|4倍|4x|5.0|5倍|5x)).*(香港|HK|Hong Kong|🇭🇰|HongKong)).*$"
+ 
+  # 台湾组
+  - name: 🇨🇳 台湾-故转
+    type: fallback
+    interval: 300
+    lazy: false
+    proxies:
+      - 🇨🇳 台湾-智选
+      - 🇨🇳 台湾-手选
+
+  - name: 🇨🇳 台湾-手选
+    type: select
+    include-all: true
+    filter: "(?=.*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan)).*$"
+  - name: 🇨🇳 台湾-智选
+    type: smart
+    include-all: true
+#   policy-priority: "牛逼:0.8"
+    uselightgbm: true
+    collectdata: true
+    interval: 300
+    filter: "(?=.*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan)).*$"
+
+  # 日本组
+  - name: 🇯🇵 日本-故转
+    type: fallback
+    interval: 300
+    lazy: false
+    proxies:
+      - 🇯🇵 日本-智选
+      - 🇯🇵 日本-手选
+
+  - name: 🇯🇵 日本-手选
+    type: select
+    include-all: true
+    filter: "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan)).*$"
+  - name: 🇯🇵 日本-智选
+    type: smart
+    include-all: true
+#   policy-priority: "牛逼:0.8"
+    uselightgbm: true
+    collectdata: true
+    interval: 300
+    filter: "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan)).*$"
+
+  # 新加坡组
+  - name: 🇸🇬 新加坡-故转
+    type: fallback
+    interval: 300
+    lazy: false
+    proxies:
+      - 🇸🇬 新加坡-智选
+      - 🇸🇬 新加坡-手选
+
+  - name: 🇸🇬 新加坡-手选
+    type: select
+    include-all: true
+    filter: "(?=.*(广新|新加坡|SG|坡|狮城|🇸🇬|Singapore)).*$"
+  - name: 🇸🇬 新加坡-智选
+    type: smart
+    include-all: true
+#   policy-priority: "牛逼:0.8"
+    uselightgbm: true
+    collectdata: true
+    interval: 300
+    filter: "(?=.*(广新|新加坡|SG|坡|狮城|🇸🇬|Singapore)).*$"
+
+  # 韩国组
+  - name: 🇰🇷 韩国-故转
+    type: fallback
+    interval: 300
+    lazy: false
+    proxies:
+      - 🇰🇷 韩国-智选
+      - 🇰🇷 韩国-手选
+
+  - name: 🇰🇷 韩国-手选
+    type: select
+    include-all: true
+    filter: "(?=.*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea)).*$"
+  - name: 🇰🇷 韩国-智选
+    type: smart
+    include-all: true
+#   policy-priority: "牛逼:0.8"
+    uselightgbm: true
+    collectdata: true
+    interval: 300
+    filter: "(?=.*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea)).*$"
+
+  # 美国组
+  - name: 🇺🇸 美国-故转
+    type: fallback
+    interval: 300
+    lazy: false
+    proxies:
+      - 🇺🇸 美国-智选
+      - 🇺🇸 美国-手选
+
+  - name: 🇺🇸 美国-手选
+    type: select
+    include-all: true
+    filter: "(?=.*(广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).*$"
+  - name: 🇺🇸 美国-智选
+    type: smart
+    include-all: true
+#   policy-priority: "牛逼:0.8"
+    uselightgbm: true
+    collectdata: true
+    interval: 300
+    filter: "(?=.*(广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).*$"
+
+
+
+  # 其他组
+  - name: 其他-故转
+    type: fallback
+    interval: 300
+    lazy: false
+    proxies:
+      - 其他-智选
+      - 其他-手选
+
+  - name: 其他-手选
+    type: select
+    include-all: true
+    filter: "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|英国|UK|United Kingdom|伦敦|英|London|🇬🇧)).)*$"
+  - name: 其他-智选
+    type: smart
+    include-all: true
+#   policy-priority: "牛逼:0.8"
+    uselightgbm: true
+    collectdata: true
+    interval: 300
+    filter: "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|英国|UK|United Kingdom|伦敦|英|London|🇬🇧)).)*$"
+
+
+
+
+# ========================
+# 规则引擎（rules）
+# ========================
 rules:
-- "RULE-SET,\U0001F6E9 ‍墙内 / Domain,\U0001F6E9 ‍墙内"
-- "RULE-SET,\U0001F4A9 广告1 / Domain,\U0001F4A9 ‍广告"
-- "RULE-SET,\U0001F4A9 广告2 / Domain,\U0001F4A9 ‍广告"
-- "RULE-SET,\U0001F4A9 广告3 / Domain,\U0001F4A9 ‍广告"
-- RULE-SET,⚠️ ‍PCDN1 / Domain,⚠️ ‍PCDN
-- RULE-SET,⚠️ ‍PCDN2 / Domain,⚠️ ‍PCDN
-- "RULE-SET,\U0001F3AC EMBY / Domain,\U0001F3AC EMBY"
-- "RULE-SET,\U0001F4FA B站1 / Domain,\U0001F4FA B站"
-- "RULE-SET,\U0001F4FA B站2 / Domain,\U0001F4FA B站"
-- "RULE-SET,\U0001F3AC Youtube / Domain,\U0001F3AC Youtube"
-- "RULE-SET,\U0001F3B5 Spotify / Domain,\U0001F3B5 Spotify"
-- "RULE-SET,\U0001F3B6 TikTok / Domain,\U0001F3B6 TikTok"
-- RULE-SET,✈️ 起飞1 / Domain,✈️ 起飞
-- RULE-SET,✈️ 起飞2 / Domain,✈️ 起飞
-- RULE-SET,✈️ 起飞3 / Domain,✈️ 起飞
-- "RULE-SET,ChatGPT / Domain,\U0001F916 AI"
-- "RULE-SET,Claude / Domain,\U0001F916 AI"
-- "RULE-SET,Meta AI / Domain,\U0001F916 AI"
-- "RULE-SET,Perplexity / Domain,\U0001F916 AI"
-- "RULE-SET,Copilot / Domain,\U0001F916 AI"
-- "RULE-SET,Gemini / Domain,\U0001F916 AI"
-- "RULE-SET,\U0001F4F2 即时通讯1 / Domain,\U0001F4F2 即时通讯"
-- "RULE-SET,\U0001F4F2 即时通讯2 / Domain,\U0001F4F2 即时通讯"
-- "RULE-SET,\U0001F4F2 即时通讯3 / Domain,\U0001F4F2 即时通讯"
-- "RULE-SET,\U0001F4F2 即时通讯4 / Domain,\U0001F4F2 即时通讯"
-- "RULE-SET,\U0001F4F2 即时通讯5 / Domain,\U0001F4F2 即时通讯"
-- "RULE-SET,\U0001F4F2 即时通讯6 / Domain,\U0001F4F2 即时通讯"
-- "RULE-SET,\U0001F4F2 即时通讯7 / Domain,\U0001F4F2 即时通讯"
-- "RULE-SET,\U0001F3AE HoYoGames / Domain,\U0001F3AE HoYoGames"
-- RULE-SET,✈️ 起飞4 / Domain,✈️ 起飞
-- "RULE-SET,\U0001F3AE 游戏平台1 / Domain,\U0001F3AE 游戏平台"
-- "RULE-SET,\U0001F3AE 游戏平台2 / Domain,\U0001F3AE 游戏平台"
-- "RULE-SET,\U0001F3AE 游戏平台3 / Domain,\U0001F3AE 游戏平台"
-- "RULE-SET,\U0001F3AE 游戏平台4 / Domain,\U0001F3AE 游戏平台"
-- RULE-SET,⏱️ 检测 / Domain,⏱️ 检测
-- RULE-SET,Proxy / Domain,✈️ 起飞
-- RULE-SET,Global / Domain,✈️ 起飞
-- RULE-SET,Globe / Domain,✈️ 起飞
-- "RULE-SET,Direct / Domain,\U0001F6E9 ‍墙内"
-- "RULE-SET,China / Domain,\U0001F6E9 ‍墙内"
-- "RULE-SET,China / IP,\U0001F6E9 ‍墙内,no-resolve"
-- "RULE-SET,Private / Domain,\U0001F6E9 ‍墙内"
-- IP-CIDR,172.18.10.2/32,DIRECT
-- MATCH,其他
+
+  - RULE-SET,🛩 ‍墙内 / Domain,🛩 ‍墙内
+  - RULE-SET,💩 广告1 / Domain,💩 ‍广告
+  - RULE-SET,💩 广告2 / Domain,💩 ‍广告
+  - RULE-SET,💩 广告3 / Domain,💩 ‍广告
+  - RULE-SET,⚠️ ‍PCDN1 / Domain,⚠️ ‍PCDN
+  - RULE-SET,⚠️ ‍PCDN2 / Domain,⚠️ ‍PCDN
+  - RULE-SET,🎬 EMBY / Domain,🎬 EMBY
+  - RULE-SET,📺 B站1 / Domain,📺 B站 
+  - RULE-SET,📺 B站2 / Domain,📺 B站 
+  - RULE-SET,🎬 Youtube / Domain,🎬 Youtube
+  - RULE-SET,🎵 Spotify / Domain,🎵 Spotify 
+  - RULE-SET,🎶 TikTok / Domain,🎶 TikTok 
+  - RULE-SET,✈️ 起飞1 / Domain,✈️ 起飞
+  - RULE-SET,✈️ 起飞2 / Domain,✈️ 起飞  
+  - RULE-SET,✈️ 起飞3 / Domain,✈️ 起飞  
+  - RULE-SET,ChatGPT / Domain,🤖 AI
+  - RULE-SET,Claude / Domain,🤖 AI
+  - RULE-SET,Meta AI / Domain,🤖 AI
+  - RULE-SET,Perplexity / Domain,🤖 AI
+  - RULE-SET,Copilot / Domain,🤖 AI
+  - RULE-SET,Gemini / Domain,🤖 AI
+  - RULE-SET,📲 即时通讯1 / Domain,📲 即时通讯
+  - RULE-SET,📲 即时通讯2 / Domain,📲 即时通讯
+  - RULE-SET,📲 即时通讯3 / Domain,📲 即时通讯
+  - RULE-SET,📲 即时通讯4 / Domain,📲 即时通讯
+  - RULE-SET,📲 即时通讯5 / Domain,📲 即时通讯
+  - RULE-SET,📲 即时通讯6 / Domain,📲 即时通讯
+  - RULE-SET,📲 即时通讯7 / Domain,📲 即时通讯
+  - RULE-SET,🎮 HoYoGames / Domain,🎮 HoYoGames
+  - RULE-SET,✈️ 起飞4 / Domain,✈️ 起飞  
+  - RULE-SET,🎮 游戏平台1 / Domain,🎮 游戏平台
+  - RULE-SET,🎮 游戏平台2 / Domain,🎮 游戏平台
+  - RULE-SET,🎮 游戏平台3 / Domain,🎮 游戏平台
+  - RULE-SET,🎮 游戏平台4 / Domain,🎮 游戏平台
+  - RULE-SET,⏱️ 检测 / Domain,⏱️ 检测
+  - RULE-SET,Proxy / Domain,✈️ 起飞
+  - RULE-SET,Global / Domain,✈️ 起飞
+  - RULE-SET,Globe / Domain,✈️ 起飞  
+  - RULE-SET,Direct / Domain,🛩 ‍墙内
+  - RULE-SET,China / Domain,🛩 ‍墙内
+  - RULE-SET,China / IP,🛩 ‍墙内,no-resolve
+  - RULE-SET,Private / Domain,🛩 ‍墙内
+  - MATCH,其他
+
+# ========================
+# 规则集提供者
+# ========================
 rule-anchor:
-  ip:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-  domain:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-  class:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
+  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
+  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
+  class: &class {type: http, interval: 86400, behavior: classical, format: text}
+
 rule-providers:
-  "\U0001F6E9 ‍墙内 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/xhrzg2017/listes/refs/heads/master/Clash/Ruleset/SteamRegionCheck.list
-  "\U0001F4A9 广告1 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list
-  "\U0001F4A9 广告2 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list
-  "\U0001F4A9 广告3 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/Reject.list
-  "⚠️ ‍PCDN1 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/HTTPDNS.Block.list
-  "⚠️ ‍PCDN2 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/uselibrary/PCDN/refs/heads/main/pcdn.list
-  "\U0001F3AC EMBY / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/Emby.list
-  "\U0001F4FA B站1 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/BilibiliHMT.list
-  "\U0001F4FA B站2 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bilibili.list
-  "\U0001F3AC Youtube / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/YouTube.list
-  "\U0001F3B5 Spotify / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.list
-  "\U0001F3B6 TikTok / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.list
-  "✈️ 起飞1 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list
-  "✈️ 起飞2 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list
-  "✈️ 起飞3 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list
-  ChatGPT / Domain:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://github.moeyy.xyz/https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs
-  Claude / Domain:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://github.moeyy.xyz/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Claude/Claude.list
-  Meta AI / Domain:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://github.moeyy.xyz/https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/MetaAi.list
-  Perplexity / Domain:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://github.moeyy.xyz/https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.mrs
-  Copilot / Domain:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://github.moeyy.xyz/https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Copilot.list
-  Gemini / Domain:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://github.moeyy.xyz/https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Gemini.list
-  "\U0001F4F2 即时通讯1 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Telegram.list
-  "\U0001F4F2 即时通讯2 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Whatsapp.list
-  "\U0001F4F2 即时通讯3 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/KakaoTalk.list
-  "\U0001F4F2 即时通讯4 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Telegram/Telegram.list
-  "\U0001F4F2 即时通讯5 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Whatsapp/Whatsapp.list
-  "\U0001F4F2 即时通讯6 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/KakaoTalk/KakaoTalk.list
-  "\U0001F4F2 即时通讯7 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Line/Line.list
-  "✈️ 起飞4 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/GameDownload.list
-  "\U0001F3AE HoYoGames / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/Hoyoverse.list
-  "\U0001F3AE 游戏平台1 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/GameDownload.list
-  "\U0001F3AE 游戏平台2 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/Hoyoverse.list
-  "\U0001F3AE 游戏平台3 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.list
-  "\U0001F3AE 游戏平台4 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/GameStorePayment.list
-  "⏱️ 检测 / Domain":
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Check.list
-  Globe / Domain:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/xhrzg2017/listes/refs/heads/master/Clash/Ruleset/Global.list
-  Proxy / Domain:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Proxy.list
-  Global / Domain:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.list
-  Direct / Domain:
-    type: http
-    interval: 86400
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Direct.list
-  China / Domain:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.mrs
-  China / IP:
-    type: http
-    interval: 86400
-    behavior: ipcidr
-    format: mrs
-    url: https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cn.mrs
-  Private / Domain:
-    type: http
-    interval: 86400
-    behavior: domain
-    format: mrs
-    url: https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.mrs
-bind-address: "*"
-external-ui: "/usr/share/openclash/ui"
-external-ui-name: metacubexd
-keep-alive-interval: 15
-keep-alive-idle: 600
-geodata-mode: true
-geodata-loader: memconservative
-tcp-concurrent: true
-unified-delay: true
-sniffer:
-  enable: true
-  override-destination: true
-  sniff:
-    QUIC:
-      ports:
-      - 443
-    TLS:
-      ports:
-      - 443
-      - 8443
-    HTTP:
-      ports:
-      - 80
-      - 8080-8880
-      override-destination: true
-  force-domain:
-  - "+.netflix.com"
-  - "+.nflxvideo.net"
-  - "+.amazonaws.com"
-  - "+.media.dssott.com"
-  skip-domain:
-  - "+.apple.com"
-  - Mijia Cloud
-  - dlg.io.mi.com
-  - "+.oray.com"
-  - "+.sunlogin.net"
-  - "+.push.apple.com"
-  parse-pure-ip: true
-authentication:
-- Clash:G9PDtQSq
+
+  🛩 ‍墙内 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/xhrzg2017/listes/refs/heads/master/Clash/Ruleset/SteamRegionCheck.list"}
+  
+  💩 广告1 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list"}
+  💩 广告2 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list"}
+  💩 广告3 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/Reject.list"}
+  
+  ⚠️ ‍PCDN1 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/HTTPDNS.Block.list"}
+  ⚠️ ‍PCDN2 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/uselibrary/PCDN/refs/heads/main/pcdn.list"}
+  
+  🎬 EMBY / Domain: {<<: *class, url: "https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/Emby.list"}
+  📺 B站1 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/BilibiliHMT.list"}
+  📺 B站2 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bilibili.list"}
+  🎬 Youtube / Domain: {<<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/YouTube.list"}
+  🎵 Spotify / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.list"}
+  🎶 TikTok / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.list"}
+  
+  ✈️ 起飞1 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list"}
+  ✈️ 起飞2 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list"}
+  ✈️ 起飞3 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list"}
+  
+  ChatGPT / Domain: {<<: *domain, url: "https://github.moeyy.xyz/https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs"}
+  Claude / Domain: {<<: *class, url: "https://github.moeyy.xyz/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Claude/Claude.list"}
+  Meta AI / Domain: {<<: *class, url: "https://github.moeyy.xyz/https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/MetaAi.list"}
+  Perplexity / Domain: {<<: *domain, url: "https://github.moeyy.xyz/https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.mrs"}
+  Copilot / Domain: {<<: *class, url: "https://github.moeyy.xyz/https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Copilot.list"}
+  Gemini / Domain: {<<: *class, url: "https://github.moeyy.xyz/https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Gemini.list"}
+
+  📲 即时通讯1 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Telegram.list"}
+  📲 即时通讯2 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Whatsapp.list"}
+  📲 即时通讯3 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/KakaoTalk.list"}
+  📲 即时通讯4 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Telegram/Telegram.list"}
+  📲 即时通讯5 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Whatsapp/Whatsapp.list"}
+  📲 即时通讯6 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/KakaoTalk/KakaoTalk.list"}
+  📲 即时通讯7 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Line/Line.list"}
+
+  ✈️ 起飞4 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/GameDownload.list"}
+  🎮 HoYoGames / Domain: {<<: *class, url: "https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/Hoyoverse.list"}
+  🎮 游戏平台1 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/GameDownload.list"}
+  🎮 游戏平台2 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/Hoyoverse.list"}
+  🎮 游戏平台3 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.list"}
+  🎮 游戏平台4 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/xhrzg2017/listes/master/Clash/Ruleset/GameStorePayment.list"}
+
+  ⏱️ 检测 / Domain: {<<: *class, url: "https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Check.list"}
+  Globe / Domain: {<<: *class, url: "https://raw.githubusercontent.com/xhrzg2017/listes/refs/heads/master/Clash/Ruleset/Global.list"}
+  Proxy / Domain: {<<: *class, url: "https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Proxy.list"}
+  Global / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.list"}
+  Direct / Domain: {<<: *class, url: "https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Direct.list"}
+  China / Domain: {<<: *domain, url: "https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.mrs"}
+  China / IP: {<<: *ip, url: "https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cn.mrs"}
+  Private / Domain: {<<: *domain, url: "https://github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.mrs"}
+
