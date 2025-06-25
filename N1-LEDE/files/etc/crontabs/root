@@ -1,1 +1,2 @@
 0 4 * * * fstrim -a
+0 4 * * * rm -rf /etc/openclash/smart_weight_data.csv
