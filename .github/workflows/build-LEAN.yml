@@ -2,7 +2,8 @@ name: Build OpenWRT-LEAN for N1
 
 on:
   workflow_dispatch:
-
+  schedule:
+    - cron: '0 0 10 * *'  
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
@@ -134,21 +135,51 @@ jobs:
     - name: Download package
       working-directory: ./openwrt
       run: |
+        echo "==================== Build diagnostics (before download) ===================="
+        df -hT
+        df -ih
+        free -h
+        du -h --max-depth=1 . 2>/dev/null | sort -h | tail -n 20
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        echo "==================== Build diagnostics (after download) ====================="
+        df -hT
+        df -ih
+        du -h --max-depth=1 dl 2>/dev/null | sort -h | tail -n 20
 
     - name: Compile the firmware
+      id: compile
       run: |
         chmod -R 755 openwrt
         cd openwrt
+        echo "==================== Build diagnostics (before compile) ====================="
+        df -hT
+        df -ih
+        free -h
+        du -h --max-depth=1 . 2>/dev/null | sort -h | tail -n 20
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
-        echo "compile_status=success" >> $GITHUB_ENV
+        echo "==================== Build diagnostics (after compile) ======================"
+        df -hT
+        df -ih
+        free -h
+        du -h --max-depth=1 bin 2>/dev/null | sort -h | tail -n 20
+
+    - name: Compile failure diagnostics
+      if: ${{ failure() }}
+      run: |
+        echo "==================== Compile failure diagnostics ============================"
+        df -hT
+        df -ih
+        free -h
+        [ -d openwrt ] && du -h --max-depth=1 openwrt 2>/dev/null | sort -h | tail -n 30 || true
+        [ -d openwrt/logs ] && ls -lah openwrt/logs || true
 
     - name: Package OpenWrt Firmware
-      if: ${{ env.compile_status }} == 'success' && !cancelled()
+      id: package
+      if: ${{ steps.compile.outcome == 'success' && !cancelled() }}
       uses: unifreq/openwrt_packit@master
       env:
         OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/openwrt-amlogic-mesongx-phicomm_n1-rootfs.tar.gz
@@ -158,27 +189,37 @@ jobs:
         WHOAMI: fightroad
         SW_FLOWOFFLOAD: 1
         SFE_FLOW: 0
+
+    - name: Prepare release metadata
+      id: release_meta
+      if: ${{ steps.package.outcome == 'success' && !cancelled() }}
+      run: |
+        if ls /opt/openwrt_packit/output/* >/dev/null 2>&1; then
+          echo "has_artifacts=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_artifacts=false" >> "$GITHUB_OUTPUT"
+        fi
+        echo "release_tag=OpenWrt_N1_$(TZ=Asia/Shanghai date +%Y%m%d-%H%M%S)" >> "$GITHUB_OUTPUT"
        
     - name: Upload OpenWrt Firmware to Release
       uses: ncipollo/release-action@main
-      if: ${{ env.PACKAGED_STATUS == 'success' }} && !cancelled()
+      if: ${{ steps.package.outcome == 'success' && steps.release_meta.outputs.has_artifacts == 'true' && !cancelled() }}
       with:
-        tag: OpenWrt_N1_${{ env.PACKAGED_OUTPUTDATE }}
+        tag: ${{ steps.release_meta.outputs.release_tag }}
         artifacts: /opt/openwrt_packit/output/*
         allowUpdates: true
-        token: ${{ secrets.GITHUBTOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
-          基于lean openwrt构建
-          首次使用建议全新刷写
+          基于lean openwrt构建，首次使用建议全新刷写。
           * 基本信息
-          IP: 192.168.2.2
+          IP: 192.168.5.2
           账户: root
-          密码: password
+          密码: password01!
           
     - name: Delete old releases
       uses: dev-drprasad/delete-older-releases@master
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         keep_latest: 10
         delete_tags : true
