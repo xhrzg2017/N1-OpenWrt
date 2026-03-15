@@ -40,11 +40,11 @@ rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/luci/themes/luci-theme-design
 rm -rf feeds/luci/applications/luci-app-design-config
 
-# Default IP（192.168.1.1全局替换为192.168.2.2）
-sed -i 's/192.168.1.1/192.168.2.2/g' package/base-files/files/bin/config_generate
+# Default IP（192.168.1.1全局替换为192.168.5.2）
+sed -i 's/192.168.1.1/192.168.5.2/g' package/base-files/files/bin/config_generate
 
-# 修改主机名
-sed -i 's/LEDE/ACBN/g' package/base-files/files/bin/config_generate
+# 设置root默认密码为password01!
+sed -i 's|root::0:0:99999:7:::|root:$1$59ChYpze$pkpOS.fqBmimRI4gexVlM1:0:0:99999:7:::|g' package/base-files/files/etc/shadow
 
 #修改默认时间格式
 sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M:%S %A")/g' $(find ./package/*/autocore/files/ -type f -name "index.htm")
