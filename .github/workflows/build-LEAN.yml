@@ -208,7 +208,7 @@ jobs:
         tag: ${{ steps.release_meta.outputs.release_tag }}
         artifacts: /opt/openwrt_packit/output/*
         allowUpdates: true
-        token: ${{ secrets.GITHUB1_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           基于lean openwrt构建，首次使用建议全新刷写。
           * 基本信息
@@ -219,7 +219,7 @@ jobs:
     - name: Delete old releases
       uses: dev-drprasad/delete-older-releases@master
       env:
-        GITHUB1_TOKEN: ${{ secrets.GITHUB1_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         keep_latest: 10
         delete_tags : true
